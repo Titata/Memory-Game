@@ -18,7 +18,25 @@ const cardSet = ["fa fa-diamond",
 "fa fa-paper-plane-o",
 "fa fa-cube"];
 
+/*setting variables*/
+const restartBtn = document.querySelector(".restart");
+let openCards = 0;//store opened cards
+let matchedCards = 0;//store matched cards
+let move = 0;//counts move
+let click = 0;//counts click
 
+/*defining game start function*/
+function (startGame) {
+  //empty cards arrays
+  emptyArray(openedCards);
+  emptyArray(matchedCards);
+};
+
+document.addEventListener('DOMContentLoaded', startGame);
+
+restartBtn.addEventListener("click", function() {
+  startGane();
+});
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
