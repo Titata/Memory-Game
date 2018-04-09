@@ -20,19 +20,37 @@ const cardSet = ["fa fa-diamond",
 
 /*setting variables*/
 const restartBtn = document.querySelector(".restart");
-let openCards = 0;//store opened cards
-let matchedCards = 0;//store matched cards
-let move = 0;//counts move
-let click = 0;//counts click
 
-/*defining game start function*/
-function (startGame) {
-  //empty cards arrays
+const deck = document.querySelector(".deck");
+
+const cards = document.querySelectorAll(".card");
+
+let openCards = [];//store opened cards
+
+let matchedCards = [];//store matched cards
+
+let movesCount = document.querySelector(".moves");
+
+let move = 0;//count moves
+
+let click = 0;//count clicks
+
+const starRate = document.querySelector(".stars");
+
+let star = document.querySelectorAll(".stars li");
+
+/*Start new game on document load*/
+document.addEventListener('DOMContentLoaded', newGame);
+
+/*Start new game when restart button press*/
+function (newGame) {
+  /*empty cards arrays*/
   emptyArray(openedCards);
   emptyArray(matchedCards);
-};
 
-document.addEventListener('DOMContentLoaded', startGame);
+  click = 0;
+  move = 0;
+};
 
 restartBtn.addEventListener("click", function() {
   startGane();
