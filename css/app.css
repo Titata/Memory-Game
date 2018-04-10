@@ -101,6 +101,11 @@ h1 {
 .score-panel .stars li {
     list-style: none;
     display: inline-block;
+    color: 	#000080;
+}
+
+.score-panel .timer {
+  margin: 0 5px;
 }
 
 .score-panel .restart {

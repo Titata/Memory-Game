@@ -18,12 +18,9 @@ const cardSet = ["fa fa-diamond",
 "fa fa-paper-plane-o",
 "fa fa-cube"];
 
-/*setting variables*/
-const restartBtn = document.querySelector(".restart");
-
 const deck = document.querySelector(".deck");
 
-const cards = document.querySelectorAll(".card");
+const cards = document.querySelectorAll(".deck li");
 
 let openCards = [];//store opened cards
 
@@ -39,28 +36,14 @@ const starRate = document.querySelector(".stars");
 
 let star = document.querySelectorAll(".stars li");
 
-/*Start new game on document load*/
-document.addEventListener('DOMContentLoaded', newGame);
 
-/*Start new game when restart button press*/
-function (newGame) {
-  /*empty cards arrays*/
-  emptyArray(openedCards);
-  emptyArray(matchedCards);
-
-  click = 0;
-  move = 0;
-};
-
-restartBtn.addEventListener("click", function() {
-  startGane();
-});
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -77,7 +60,26 @@ function shuffle(array) {
     return array;
 }
 
+//start new game function
+function newGame () {
 
+//remove cards from deck
+  deck.innerHTML = "";
+
+//shuffle cards
+  let shuffledCardSet = shuffle(cardSet);
+
+//add cards to deck and icons to each card
+  cards.forEach(function(card) {
+    deck.appendChild(card);
+    card.classList = "card";
+    for (let i = 0; i < shuffledCardSet.length; i++) {
+      cards[i].firstElementChild.className = shuffledCardSet[i]
+    }
+  });
+}
+
+window.onload = newGame();
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
