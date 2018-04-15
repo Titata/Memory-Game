@@ -22,7 +22,7 @@ const deck = document.querySelector(".deck");
 
 const cards = document.querySelectorAll(".deck li");
 
-let openCards = [];//store opened cards
+
 
 let matchedCards = [];//store matched cards
 
@@ -79,7 +79,35 @@ function newGame () {
   });
 }
 
+//start new game when window is loaded
 window.onload = newGame();
+
+let openCards = [];//store opened cards
+
+//function to open card's icon
+function open(event) {
+  if (openCards.length < 2) {
+    event.target.className = "card open show disable";
+    } else {
+      return false;
+    }
+}
+
+//function to add opened card to the list of opened cards
+function addOpenedCards(event) {
+  openCards.push(event.target.firstElementChild);
+}
+
+//Function to open cards on click
+deck.addEventListener("click", function(event) {
+  if (!(event.target.className === "deck") && (openCards.length <= 2)) {
+    open(event);
+    addOpenedCards(event);
+  }
+});
+
+
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
