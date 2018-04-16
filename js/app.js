@@ -22,10 +22,6 @@ const deck = document.querySelector(".deck");
 
 const cards = document.querySelectorAll(".deck li");
 
-
-
-let matchedCards = [];//store matched cards
-
 let movesCount = document.querySelector(".moves");
 
 let move = 0;//count moves
@@ -35,6 +31,12 @@ let click = 0;//count clicks
 const starRate = document.querySelector(".stars");
 
 let star = document.querySelectorAll(".stars li");
+
+let openCards = [];//store opened cards
+
+let matchCards = [];//store matched cards
+
+const restart = document.querySelector(".restart");
 
 
 /*
@@ -62,51 +64,25 @@ function shuffle(array) {
 
 //start new game function
 function newGame () {
-
-//remove cards from deck
-  deck.innerHTML = "";
-
-//shuffle cards
-  let shuffledCardSet = shuffle(cardSet);
-
-//add cards to deck and icons to each card
-  cards.forEach(function(card) {
-    deck.appendChild(card);
-    card.classList = "card";
-    for (let i = 0; i < shuffledCardSet.length; i++) {
-      cards[i].firstElementChild.className = shuffledCardSet[i]
-    }
-  });
+    //remove cards from deck
+    deck.innerHTML = "";
+    //shuffle cards
+    let shuffledCardSet = shuffle(cardSet);
+    //add cards to deck and icons to each card
+    cards.forEach(function(card) {
+      deck.appendChild(card);
+      card.classList = "card";
+      for (let i = 0; i < shuffledCardSet.length; i++) {
+        cards[i].firstElementChild.className = shuffledCardSet[i]
+        }
+    });
 }
 
-//start new game when window is loaded
-window.onload = newGame();
+//Start new game when window is loaded
+document.addEventListener("DOMContentLoaded", newGame);
 
-let openCards = [];//store opened cards
-
-//function to open card's icon
-function open(event) {
-  if (openCards.length < 2) {
-    event.target.className = "card open show disable";
-    } else {
-      return false;
-    }
-}
-
-//function to add opened card to the list of opened cards
-function addOpenedCards(event) {
-  openCards.push(event.target.firstElementChild);
-}
-
-//Function to open cards on click
-deck.addEventListener("click", function(event) {
-  if (!(event.target.className === "deck") && (openCards.length <= 2)) {
-    open(event);
-    addOpenedCards(event);
-  }
-});
-
-
+//Start new game when restart button is clicked
+restart.addEventListener("click", newGame);
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -118,3 +94,72 @@ deck.addEventListener("click", function(event) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+
+//Open cards on click
+deck.addEventListener("click", function(event) {
+    if (!(event.target.className === "deck") && (openCards.length <= 2)) {
+        open(event);
+        addOpenedCards(event);
+      }
+});
+
+//function to open card's icon
+function open(event) {
+    if (openCards.length < 2) {
+      event.target.className = "card open show disable";
+      } else {
+        return false;
+    }
+}
+
+//function to add opened card to the list of opened cards
+function addOpenedCards(event) {
+    openCards.push(event.target.firstElementChild);
+    //Check if two cards are opened
+    if (openCards.length === 2) {
+        //Check if two opened cards match
+        if (openCards[0].classList.value === openCards[1].classList.value) {
+            matched(openCards, matchCards);
+        } else {
+            unmatched(openCards);
+        }
+    }
+}
+
+//If two opened cards match keep them opened
+function matched(arr1, arr2) {
+    setTimeout(function(){
+        arr1[0].parentNode.classList.remove('open', 'show');
+        arr1[1].parentNode.classList.remove('open', 'show');
+        arr1[0].parentNode.classList.add('match');
+        arr1[1].parentNode.classList.add('match');
+        arr2.push(arr1[0], arr1[1]);
+        emptyArray(arr1);
+    }, 300);
+
+    // If all cards match open modal
+    setTimeout(function() {
+        if (arr2.length === 16) {
+            gameOver();
+        }
+    }, 1000);
+}
+
+// Empty an array
+function emptyArray(arr) {
+    arr.splice(0, arr.length);
+}
+
+//If two opened cards don't match close them
+function unmatched(arr) {
+    setTimeout(function() {
+        arr[0].parentNode.classList.add("unmatched");
+        arr[1].parentNode.classList.add("unmatched");
+    }, 400);
+    setTimeout(function() {
+        arr[0].parentNode.classList.remove("open", "show", "disable", "unmatched");
+        arr[1].parentNode.classList.remove("open", "show", "disable", "unmatched");
+        openCards = [];
+    }, 1200);
+}
