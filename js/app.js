@@ -38,6 +38,8 @@ let matchCards = [];//store matched cards
 
 const restart = document.querySelector(".restart");
 
+const timer = document.querySelector(".timer");
+
 
 /*
  * Display the cards on the page
@@ -162,4 +164,27 @@ function unmatched(arr) {
         arr[1].parentNode.classList.remove("open", "show", "disable", "unmatched");
         openCards = [];
     }, 1200);
+}
+
+//set time count function
+function timeCount() {
+    timer.innerHTML = addZero(hours) + ":" + addZero(minutes) + ":" + addZero(seconds);
+    seconds++;
+    if (seconds === 60) {
+        mintues++;
+        seconds = 0;
+      }
+    if (minutes = 60) {
+        hours++;
+        minutes = 0;
+    }
+}
+
+//Add zero timer on the page
+function addZero(num) {
+    if (num < 10) {
+        return "0" + num;
+    } else {
+        return num;
+    }
 }
