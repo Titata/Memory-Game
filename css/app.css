@@ -125,4 +125,14 @@ h1 {
 .modal .stars li {
   display: inline-block;
   list-style: none;
+  font-size: 24px;
+}
+
+.play-again {
+  margin: 12px;
+  padding: 12px;
+}
+
+.final-moves, .final-time, p, button, .modal .stars {
+  font-size: 24px;
 }

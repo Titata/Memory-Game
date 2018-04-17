@@ -250,6 +250,7 @@ const modalGreeting = document.querySelector(".modal-greeting");
 const finalStars = document.querySelector(".modal .stars")
 const finalMoves = document.querySelector(".final-moves");
 const finalTime = document.querySelector(".final-time");
+const playAgainBtn = document.querySelector(".play-again")
 
 function gameOver() {
     stopTimer();
@@ -257,4 +258,13 @@ function gameOver() {
     finalStars.innerHTML = "Rating: " + starRate.innerHTML;
     finalMoves.innerHTML = movesCount.innerHTML;
     finalTime.innerHTML = timer.innerHTML;
+}
+
+playAgainBtn.addEventListener("click", function() {
+    closeModal();
+    newGame();
+});
+
+function closeModal() {
+    modal.style.display = "none";
 }
