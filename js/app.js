@@ -22,12 +22,6 @@ const deck = document.querySelector(".deck");
 
 const cards = document.querySelectorAll(".deck li");
 
-let movesCount = document.querySelector(".moves");
-
-let move = 0;//count moves
-
-let click = 0;//count clicks
-
 const starRate = document.querySelector(".stars");
 
 let star = document.querySelectorAll(".stars li");
@@ -38,7 +32,7 @@ let matchCards = [];//store matched cards
 
 const restart = document.querySelector(".restart");
 
-const timer = document.querySelector(".timer");
+
 
 
 /*
@@ -68,6 +62,9 @@ function shuffle(array) {
 function newGame () {
     //remove cards from deck
     deck.innerHTML = "";
+    //empty cards arrays
+    emptyArray(openCards);
+    emptyArray(matchCards);
     //shuffle cards
     let shuffledCardSet = shuffle(cardSet);
     //add cards to deck and icons to each card
@@ -78,6 +75,16 @@ function newGame () {
         cards[i].firstElementChild.className = shuffledCardSet[i]
         }
     });
+    //reset moves count
+    click = 0;
+    move = 0;
+    movesCount.innerHTML = move;
+    //Reset timer
+    stopTimer();
+    hours = 0;
+    minutes = 0;
+    seconds = 0;
+    timer.innerHTML = addZero(hours) + ":" + addZero(minutes) + ":" + addZero(seconds)
 }
 
 //Start new game when window is loaded
@@ -127,6 +134,7 @@ function addOpenedCards(event) {
             unmatched(openCards);
         }
     }
+    moveCounter();
 }
 
 //If two opened cards match keep them opened
@@ -167,20 +175,25 @@ function unmatched(arr) {
 }
 
 //set time count function
+const timer = document.querySelector(".timer");
+let hours = 0;
+let minutes = 0;
+let seconds = 0;
+let time;
+
 function timeCount() {
-    timer.innerHTML = addZero(hours) + ":" + addZero(minutes) + ":" + addZero(seconds);
+    timer.innerHTML = addZero(hours) + ':' + addZero(minutes) + ':' + addZero(seconds);
     seconds++;
     if (seconds === 60) {
-        mintues++;
+        minutes++;
         seconds = 0;
-      }
-    if (minutes = 60) {
+    }
+    if (minutes === 60) {
         hours++;
         minutes = 0;
     }
 }
-
-//Add zero timer on the page
+//Add zeros to timer displayed
 function addZero(num) {
     if (num < 10) {
         return "0" + num;
@@ -188,3 +201,28 @@ function addZero(num) {
         return num;
     }
 }
+//Stop timer
+function stopTimer() {
+    clearInterval(time);
+}
+
+//Function to count clicks
+let movesCount = document.querySelector(".moves");
+let move = 0;//count moves
+let click = 0;//count clicks
+
+function moveCounter() {
+    click++;
+    move = Math.floor(click/2);
+    if (move === 1) {
+        movesCount.nextElementSibling.innerHTML = " Move";
+    } else {
+        movesCount.nextElementSibling.innerHTML = " Moves";
+    }
+    movesCount.innerHTML = move;
+    if (click === 1) {
+        time = setInterval(function() {
+            timeCount();
+      }, 800);
+    }
+  }
