@@ -22,17 +22,15 @@ const deck = document.querySelector(".deck");
 
 const cards = document.querySelectorAll(".deck li");
 
-const starRate = document.querySelector(".stars");
-
-let star = document.querySelectorAll(".stars li");
-
 let openCards = [];//store opened cards
 
 let matchCards = [];//store matched cards
 
 const restart = document.querySelector(".restart");
 
+const starRate = document.querySelector(".stars");
 
+let star = document.querySelectorAll(".stars li");
 
 
 /*
@@ -69,12 +67,16 @@ function newGame () {
     let shuffledCardSet = shuffle(cardSet);
     //add cards to deck and icons to each card
     cards.forEach(function(card) {
-      deck.appendChild(card);
-      card.classList = "card";
-      for (let i = 0; i < shuffledCardSet.length; i++) {
-        cards[i].firstElementChild.className = shuffledCardSet[i]
+        deck.appendChild(card);
+        card.classList = "card";
+        for (let i = 0; i < shuffledCardSet.length; i++) {
+            cards[i].firstElementChild.className = shuffledCardSet[i]
         }
     });
+    //reset star rating
+    for (let i= 0; i < star.length; i++){
+        star[i].firstElementChild.classNAme = "fa fa-star";
+    }
     //reset moves count
     click = 0;
     move = 0;
@@ -220,9 +222,24 @@ function moveCounter() {
         movesCount.nextElementSibling.innerHTML = " Moves";
     }
     movesCount.innerHTML = move;
+    //Start timer when card is clicked
     if (click === 1) {
         time = setInterval(function() {
             timeCount();
-      }, 800);
+        }, 800);
     }
-  }
+    //Setting star rates based on moves
+    if (move >= 14 && move < 20) {
+        for (i = 0; i < 3; i++) {
+            if (i > 1) {
+                star[i].style.visibility = "collapse";
+            }
+        }
+    } else if (move >= 20) {
+        for (i = 0; i < 3; i++) {
+            if (i > 0) {
+                star[i].style.visibility = "collapse";
+            }
+        }
+    }
+}
