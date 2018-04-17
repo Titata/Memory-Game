@@ -81,6 +81,9 @@ h1 {
     font-size: 33px;
 }
 
+.deck .card .disable {
+  pointer-events: none;
+}
 /*
  * Styles for the Score Panel
  */
@@ -90,6 +93,9 @@ h1 {
     width: 345px;
     margin-bottom: 10px;
     font-size: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .score-panel .stars {
@@ -106,33 +112,65 @@ h1 {
 }
 
 .score-panel .timer {
-  margin: 0 5px;
+    margin: 0 5px;
 }
 
 .score-panel .restart {
-    float: right;
     cursor: pointer;
 }
 
 .modal {
-  display: none;
-  width: 60%;
-  text-align: center;
-  position: fixed;
-  background-color: lightgrey;
+    display: none;
+    width: 60%;
+    text-align: center;
+    position: fixed;
+    background-color: lightgrey;
 }
 
 .modal .stars li {
-  display: inline-block;
-  list-style: none;
-  font-size: 24px;
+    display: inline-block;
+    list-style: none;
+    font-size: 24px;
 }
 
 .play-again {
-  margin: 12px;
-  padding: 12px;
+    margin: 12px;
+    padding: 12px;
 }
 
 .final-moves, .final-time, p, button, .modal .stars {
-  font-size: 24px;
+    font-size: 24px;
+}
+
+
+@media screen and (max-width: 750px) {
+    .deck {
+        width: 600px;
+        height: 600px;
+        padding: 20px;
+    }
+    .deck .card {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+  .score-panel {
+      width: 300px;
+      flex-direction: column;
+      text-align: center;
+  }
+    .deck {
+        width: 320px;
+        height: 320px;
+        padding: 10px;
+    }
+    .deck .card {
+        width: 70px;
+        height: 70px;
+    }
+    .modal {
+      width: 80%;
+    }
 }

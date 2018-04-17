@@ -74,8 +74,8 @@ function newGame () {
         }
     });
     //reset star rating
-    for (let i= 0; i < star.length; i++){
-        star[i].firstElementChild.classNAme = "fa fa-star";
+    for (let i = 0; i < star.length; i++) {
+        star[i].style.visibility = "visible";
     }
     //reset moves count
     click = 0;
