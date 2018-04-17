@@ -113,3 +113,16 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+.modal {
+  display: none;
+  width: 60%;
+  text-align: center;
+  position: fixed;
+  background-color: lightgrey;
+}
+
+.modal .stars li {
+  display: inline-block;
+  list-style: none;
+}

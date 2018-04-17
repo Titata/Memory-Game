@@ -107,7 +107,7 @@ restart.addEventListener("click", newGame);
  */
 
 
-//Open cards on click
+//If a card is clicked
 deck.addEventListener("click", function(event) {
     if (!(event.target.className === "deck") && (openCards.length <= 2)) {
         open(event);
@@ -115,7 +115,7 @@ deck.addEventListener("click", function(event) {
       }
 });
 
-//function to open card's icon
+//Display card's icons
 function open(event) {
     if (openCards.length < 2) {
       event.target.className = "card open show disable";
@@ -124,12 +124,12 @@ function open(event) {
     }
 }
 
-//function to add opened card to the list of opened cards
+//Add the card to a *list* of "open" cards
 function addOpenedCards(event) {
     openCards.push(event.target.firstElementChild);
     //Check if two cards are opened
     if (openCards.length === 2) {
-        //Check if two opened cards match
+        //Check to see if the two cards match
         if (openCards[0].classList.value === openCards[1].classList.value) {
             matched(openCards, matchCards);
         } else {
@@ -139,7 +139,7 @@ function addOpenedCards(event) {
     moveCounter();
 }
 
-//If two opened cards match keep them opened
+//If the cards do match, lock the cards in the open position
 function matched(arr1, arr2) {
     setTimeout(function(){
         arr1[0].parentNode.classList.remove('open', 'show');
@@ -163,7 +163,7 @@ function emptyArray(arr) {
     arr.splice(0, arr.length);
 }
 
-//If two opened cards don't match close them
+//If the cards do not match, remove the cards from the list and hide the card's symbol
 function unmatched(arr) {
     setTimeout(function() {
         arr[0].parentNode.classList.add("unmatched");
@@ -208,7 +208,7 @@ function stopTimer() {
     clearInterval(time);
 }
 
-//Function to count clicks
+//Increment the move counter and display it on the page
 let movesCount = document.querySelector(".moves");
 let move = 0;//count moves
 let click = 0;//count clicks
@@ -242,4 +242,19 @@ function moveCounter() {
             }
         }
     }
+}
+
+//Display congratulation modal when all cards are opened
+const modal = document.querySelector(".modal");
+const modalGreeting = document.querySelector(".modal-greeting");
+const finalStars = document.querySelector(".modal .stars")
+const finalMoves = document.querySelector(".final-moves");
+const finalTime = document.querySelector(".final-time");
+
+function gameOver() {
+    stopTimer();
+    modal.style.display = "block";
+    finalStars.innerHTML = "Rating: " + starRate.innerHTML;
+    finalMoves.innerHTML = movesCount.innerHTML;
+    finalTime.innerHTML = timer.innerHTML;
 }
