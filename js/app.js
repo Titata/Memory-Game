@@ -19,18 +19,31 @@ const cardSet = ["fa fa-diamond",
 "fa fa-cube"];
 
 const deck = document.querySelector(".deck");
-
 const cards = document.querySelectorAll(".deck li");
-
 let openCards = [];//store opened cards
-
 let matchCards = [];//store matched cards
 
 const restart = document.querySelector(".restart");
 
 const starRate = document.querySelector(".stars");
-
 let star = document.querySelectorAll(".stars li");
+
+const timer = document.querySelector(".timer");
+let hours = 0;
+let minutes = 0;
+let seconds = 0;
+let time;
+
+let movesCount = document.querySelector(".moves");
+let move = 0;//count moves
+let click = 0;//count clicks
+
+const modal = document.querySelector(".modal");
+const modalGreeting = document.querySelector(".modal-greeting");
+const finalStars = document.querySelector(".modal .stars")
+const finalMoves = document.querySelector(".final-moves");
+const finalTime = document.querySelector(".final-time");
+const playAgainBtn = document.querySelector(".play-again")
 
 
 /*
@@ -177,12 +190,6 @@ function unmatched(arr) {
 }
 
 //set time count function
-const timer = document.querySelector(".timer");
-let hours = 0;
-let minutes = 0;
-let seconds = 0;
-let time;
-
 function timeCount() {
     timer.innerHTML = addZero(hours) + ':' + addZero(minutes) + ':' + addZero(seconds);
     seconds++;
@@ -209,10 +216,6 @@ function stopTimer() {
 }
 
 //Increment the move counter and display it on the page
-let movesCount = document.querySelector(".moves");
-let move = 0;//count moves
-let click = 0;//count clicks
-
 function moveCounter() {
     click++;
     move = Math.floor(click/2);
@@ -245,13 +248,6 @@ function moveCounter() {
 }
 
 //Display congratulation modal when all cards are opened
-const modal = document.querySelector(".modal");
-const modalGreeting = document.querySelector(".modal-greeting");
-const finalStars = document.querySelector(".modal .stars")
-const finalMoves = document.querySelector(".final-moves");
-const finalTime = document.querySelector(".final-time");
-const playAgainBtn = document.querySelector(".play-again")
-
 function gameOver() {
     stopTimer();
     modal.style.display = "block";
