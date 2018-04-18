@@ -9,6 +9,8 @@
 
 To play the game you need to clone or download the repository.  Then open index.html file in your browser.
 
+The game uses Google Fonts and Font Awesome so internet connection is required to play the game.
+
 Game starts when player clicks on any card. It is allowed to open only two cards at a time.  If cards match they stay opened.  Game ends when all cards are opened. Two opened cards count one move, no matter if they match or not.
 
 Star rating:
