@@ -20,8 +20,3 @@ Star rating:
 14 to 20 moves - 2 stars;
 
 More than 20 moves - 1 star;
-
-
-## Contributing
-
-If you have any suggestions you are welcome to send pull request.
