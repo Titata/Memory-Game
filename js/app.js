@@ -132,7 +132,7 @@ deck.addEventListener("click", function(event) {
 function open(event) {
     if (openCards.length < 2) {
       event.target.className = "card open show disable";
-      } else {
+    } else {
         return false;
     }
 }
